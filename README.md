@@ -1,6 +1,6 @@
 
 <div id="header" align="center">
-  <img src="https://github.com/popcorner893/06_FutbolAI/blob/main/FrontEnd/src/Multimedia/Fondo_banner.png"/>
+  <img src="https://github.com/popcorner893/FutbolAI/blob/master/FrontEnd/src/Multimedia/Fondo_banner.png"/>
 </div>
 
 
