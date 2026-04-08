@@ -1,0 +1,293 @@
+:root {
+  --verde-inteligente: #22C55E;
+  --verde-dark: #15803D;
+  --negro-grafito: #2C2C2C;
+  --gris-fondo: #f5f7f6;
+  --blanco-puro: #FFFFFF;
+  --font-title: 'Poppins', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --font-accent: 'Exo 2', sans-serif;
+}
+
+/* === CONTENEDOR GENERAL === */
+.oraculo-container {
+  position: relative;
+  width: 100%;
+  min-height: 100vh; /* <<--- fuerza la altura al viewport */
+  font-family: var(--font-body);
+  color: var(--negro-grafito);
+  background: transparent;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  z-index: 1;
+}
+
+
+/* Aseguramos que el main del Oráculo se expanda dentro del layout */
+.oraculo-container > .zona-principal {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  padding: 3rem 2rem;
+  overflow: hidden;
+  z-index: 2;
+}
+
+/* oraculo-background limitado al main */
+.oraculo-background {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  background:
+    radial-gradient(circle at 10% 12%, rgba(22,163,74,0.12), transparent 20%),
+    radial-gradient(circle at 92% 84%, rgba(22,163,74,0.09), transparent 20%),
+    linear-gradient(180deg, rgba(0,0,0,0.0), rgba(0,0,0,0.15));
+  overflow: hidden;
+  filter: blur(2px);
+}
+
+
+
+/* canvas ahora absoluto y ajustado al contenedor padre */
+#network-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  background: transparent;
+  filter: blur(0.3px);
+  opacity: 0.85;
+}
+
+/* streaks también relativos al main (ya no fixed) */
+.streaks {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 1; /* encima del canvas, debajo del contenido que tendrá z-index 2 */
+}
+
+/* y el resto de estilos .streak y keyframes puedes dejarlos tal como están */
+
+
+/* Estilos de las estelas */
+.streak {
+  position: absolute;
+  top: -10%;
+  left: -30%;
+  width: 220px;
+  height: 2px;
+  background: linear-gradient(90deg,
+    rgba(255,255,255,0.0) 0%,
+    rgba(255,255,255,0.85) 45%,
+    rgba(255,255,255,0.0) 100%);
+  transform: rotate(-25deg) translateX(-100%);
+  opacity: 0;
+  mix-blend-mode: screen;
+  filter: blur(0.6px);
+  border-radius: 2px;
+}
+
+/* Animaciones */
+.streak.s1 { animation: shoot 18s linear infinite; animation-delay: 1s; width: 240px; transform: rotate(-22deg) translateX(-120%); }
+.streak.s2 { animation: shoot 21s linear infinite; animation-delay: 6s; width: 300px; transform: rotate(-28deg) translateX(-140%); }
+.streak.s3 { animation: shoot 24s linear infinite; animation-delay: 12s; width: 200px; transform: rotate(-18deg) translateX(-110%); }
+.streak.s4 { animation: shoot 27s linear infinite; animation-delay: 9s; width: 280px; transform: rotate(-30deg) translateX(-150%); }
+.streak.s5 { animation: shoot 32s linear infinite; animation-delay: 17s; width: 320px; transform: rotate(-15deg) translateX(-160%); }
+
+@keyframes shoot {
+  0% { transform: translateX(-150%) rotate(var(--rot, -25deg)); opacity: 0; }
+  10% { opacity: 0.9; transform: translateX(-20%) rotate(var(--rot, -25deg)); }
+  40% { opacity: 1; transform: translateX(50%) rotate(var(--rot, -25deg)); }
+  70% { opacity: 0.6; transform: translateX(150%) rotate(var(--rot, -25deg)); }
+  100% { transform: translateX(250%) rotate(var(--rot, -25deg)); opacity: 0; }
+}
+
+/* chispa puntual */
+.oraculo-background::after {
+  content: "";
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  top: 12%;
+  left: 78%;
+  background: radial-gradient(circle, rgba(255,255,255,0.95), rgba(255,255,255,0.0) 60%);
+  opacity: 0.08;
+  filter: blur(2px);
+  animation: twinkle 6.5s ease-in-out infinite;
+}
+
+@keyframes twinkle {
+  0%, 85% { opacity: 0.02; transform: scale(1); }
+  90% { opacity: 0.6; transform: scale(1.8); }
+  100% { opacity: 0.02; transform: scale(1); }
+}
+
+
+/* === HEADER === */
+.zona-superior {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.2rem 2rem;
+  background-color: rgba(255,255,255,0.6);
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+  z-index: 2;
+  position: relative;
+}
+.zona-superior .logo { font-family: var(--font-accent); color: var(--verde-dark); font-weight: 700; font-size: 1.4rem; }
+.zona-superior .perfil { font-family: var(--font-body); font-weight: 500; color: #222; }
+
+/* === MENÚ === */
+.zona-menu {
+  display: flex;
+  justify-content: space-around;
+  padding: 0.8rem 0;
+  background-color: rgba(255,255,255,0.5);
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+  z-index: 2;
+  position: relative;
+}
+.zona-menu div { cursor: pointer; font-family: var(--font-accent); text-transform: uppercase; color: #333; transition: color 0.25s; }
+.zona-menu div:hover, .zona-menu .activo { color: var(--verde-dark); }
+
+/* === CONTENIDO PRINCIPAL === */
+h1 { font-family: var(--font-title); color: #111; font-size: 2rem; }
+h2 { font-family: var(--font-title); color: #222; font-size: 1.25rem; margin-bottom: 1rem; }
+p { font-family: var(--font-body); max-width: 700px; margin: 0 auto 2rem; line-height: 1.6; color: #333; }
+
+/* === PANEL ORÁCULO === */
+.panel-oraculo {
+  background: linear-gradient(135deg, rgba(255,255,255,0.85) 0%, rgba(255,255,255,0.92) 100%);
+  border: 1px solid rgba(22,163,74,0.14);
+  border-radius: 18px;
+  padding: 2rem;
+  max-width: 1280px; /* o 1200px según gusto */
+  width: 90%; /* para que tenga márgenes laterales en pantallas grandes */
+  margin: 0 auto;
+  box-shadow: 0 8px 26px rgba(0,0,0,0.08);
+  position: relative;
+  overflow: visible;
+}
+
+/* etiquetas */
+.label-select { display: block; text-align: left; color: #222; font-weight: 700; margin-bottom: 8px; font-family: var(--font-title); }
+
+/* === SELECTORES === */
+.selector-liga { margin-bottom: 1.2rem; text-align: left; }
+.selector-equipos-headers { display: flex; justify-content: space-between; gap: 1.6rem; margin-bottom: 10px; align-items: center; }
+.equip-header { flex: 1; text-align: left; color: #222; font-weight: 700; font-family: var(--font-title); }
+.selector-equipos { display: flex; gap: 1.6rem; align-items: flex-start; }
+.select-wrap { flex: 1.2; min-width: 300px; }
+
+.option-with-icon { display: flex; align-items: center; gap: 0.8rem; }
+.option-with-icon img { width: 36px; height: 36px; object-fit: contain; border-radius: 6px; }
+
+/* react-select */
+.custom-select__control { background: #fff !important; border-color: var(--verde-dark) !important; min-height: 52px; border-radius: 12px; }
+.custom-select__single-value { color: #111 !important; font-weight: 700; }
+.custom-select__placeholder { color: #555 !important; }
+.custom-select__menu { background: #fff !important; color: #000 !important; border-radius: 10px; }
+.custom-select__option--is-focused { background: rgba(34,197,94,0.1) !important; color: #000 !important; }
+.custom-select__control::before {
+  content: "";
+  display: inline-block;
+  width: 6px;
+  height: 28px;
+  margin-right: 8px;
+  background: linear-gradient(180deg, var(--verde-inteligente), var(--verde-dark));
+  border-radius: 6px;
+}
+
+/* === BOTÓN Y RESULTADOS === */
+.separador { display: flex; align-items: center; margin: 20px 0; gap: 12px; }
+.linea { flex: 1; height: 1px; background: rgba(22,163,74,0.3); border-radius: 4px; }
+.btn-predecir {
+  background-color: var(--verde-inteligente);
+  border: none;
+  color: white;
+  padding: 0.8rem 1.8rem;
+  border-radius: 999px;
+  font-family: var(--font-accent);
+  font-weight: 800;
+  cursor: pointer;
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+  box-shadow: 0 8px 26px rgba(22,163,74,0.2);
+}
+.btn-predecir:hover { transform: translateY(-4px); box-shadow: 0 16px 36px rgba(22,163,74,0.3); }
+
+.resultado-wrapper { margin-top: 14px; text-align: center; }
+.resultado {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 28px;
+  margin-top: 12px;
+  background: #fff;
+  padding: 18px;
+  border-radius: 14px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+}
+.resultado-equipo { display: flex; flex-direction: column; align-items: center; gap: 8px; min-width: 180px; }
+.resultado-equipo .res-logo { width: 108px; height: 108px; object-fit: contain; border-radius: 12px; background: #fff; box-shadow: 0 8px 28px rgba(0,0,0,0.08); }
+.resultado-equipo h3 { margin-top: 6px; font-size: 1.05rem; color: #111; font-weight: 700; max-width: 160px; text-align: center; }
+.goles { font-family: var(--font-accent); font-size: 72px; color: var(--verde-dark); font-weight: 900; margin: 0; }
+.resultado-separator {
+  width: 1px;
+  height: 96px;
+  background: linear-gradient(180deg, rgba(0,0,0,0.06), rgba(22,163,74,0.25), rgba(0,0,0,0.06));
+  border-radius: 2px;
+  margin: 0 8px;
+  align-self: center;
+}
+
+#network-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  background: transparent;
+  filter: blur(0.5px);
+}
+
+.confianza {
+  text-align: center;
+  color: #00ff88;
+  font-weight: 600;
+  margin-top: 10px;
+  font-size: 1.1rem;
+}
+
+
+/* === RESPONSIVO === */
+@media (max-width: 900px) {
+  .panel-oraculo { padding: 1.6rem; }
+  .select-wrap { min-width: 0; flex: 1; }
+  .resultado { flex-direction: column; gap: 18px; padding: 14px; }
+  .resultado-separator { display: none; }
+  .goles { font-size: 48px; }
+  .resultado-equipo .res-logo { width: 92px; height: 92px; }
+}
+@media (max-width: 520px) {
+  .selector-equipos { flex-direction: column; }
+  .equip-header { text-align: left; }
+  .select-wrap { min-width: 0; }
+}
+
+
+
+
+
+

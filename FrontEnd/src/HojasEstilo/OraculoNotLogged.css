@@ -1,0 +1,74 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Inter:wght@400;500&display=swap');
+
+:root {
+  --font-title: 'Poppins', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --font-accent: 'Exo 2', sans-serif;
+
+  /* Colores principales */
+  --verde-principal: #16A34A;
+  --verde-oscuro: #0E7A37;
+  --negro-grafito: #1E1E1E;
+  --blanco-puro: #FFFFFF;
+
+  /* Colores complementarios */
+  --gris-claro: #F2F4F7;
+  --azul-neon: #0D9998;
+
+  /* Paleta extendida */
+  --amarillo: #FFD600;
+  --rojo-alerta: #E63946;
+  --gris-metalico: #A9A9A9;
+}
+
+
+
+.oraculo-not-logged-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Fuerza altura completa del viewport */
+  width: 100%;
+  background-color: var(--verde-principal);
+  font-family: var(--font-body);
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+
+.oraculo-not-logged-card {
+  background-color: var(--blanco-puro);
+  border-radius: 16px;
+  padding: 50px 60px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  max-width: 520px;
+  width: 100%;
+}
+
+.oraculo-not-logged-title {
+  font-family: var(--font-title);
+  font-size: 1.8rem;
+  color: var(--negro-grafito);
+  margin-bottom: 35px;
+  font-weight: 600;
+}
+
+.oraculo-not-logged-button {
+  background-color: var(--verde-oscuro);
+  color: var(--blanco-puro);
+  border: none;
+  border-radius: 8px;
+  padding: 14px 30px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.oraculo-not-logged-button:hover {
+  background-color: #0c622e;
+  transform: translateY(-2px);
+}
+

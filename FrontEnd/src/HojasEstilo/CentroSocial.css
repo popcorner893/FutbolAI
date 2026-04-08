@@ -1,0 +1,29 @@
+.accordion-button {
+  background-color: #1E1E1E;
+  color: white;
+  font-weight: bold;
+}
+
+.accordion-button:not(.collapsed) {
+  background-color: #16A34A;
+  color: white;
+}
+
+.accordion-body {
+  background-color: #f9f9f9;
+  border-radius: 8px;
+}
+
+iframe {
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.card {
+  background-color: #ffffff;
+  border: 1px solid #eaeaea;
+}
+
+.list-group-item {
+  font-size: 0.95rem;
+}
